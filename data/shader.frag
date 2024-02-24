@@ -5,7 +5,6 @@ precision mediump float;
 #define PROCESSING_COLOR_SHADER
 
 uniform vec2 u_resolution;
-uniform vec3 u_mouse;
 uniform float u_time;
 float dist(vec3 ray){
     //if (ray.y < -1.) return 0.;
@@ -38,7 +37,7 @@ void main() {
     uv *= 2.;
     uv.x *= u_resolution.x/u_resolution.y;
     vec3 camera = vec3(0., 0., -3.);
-    vec3 sun = vec3(sin(u_time), -1.6, cos(u_time));
+    vec3 sun = vec3(sin(u_time), 2.5, cos(u_time));
     vec3 dir = normalize(vec3(uv, 1.));
     vec3 point = shoot(camera, dir, 0.);
     vec3 color = vec3(0., 0., 0.);
@@ -49,7 +48,7 @@ void main() {
     }
 
     vec3 isShadow = shoot(point, normalize(sun-point), 0.03);
-    if (dist(isShadow) > 0.01){
+    if (dist(isShadow) < 0.02){
         color *= 0.6;
     } else {
         color *= 1.4;
