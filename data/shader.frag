@@ -7,8 +7,9 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 float dist(vec3 ray){
-    //if (ray.y < -1.) return 0.;
-    return length(vec3(0., 0., 0.)-ray)-1.;
+    float d1 = length(vec3(sin(u_time)*2, cos(u_time)*2, 0.)-ray)-1.;
+    float d2 = length(vec3(cos(u_time), 0., sin(u_time))-ray)-1.;
+    return min(d1, d2);
 }
 float sdPlane(vec3 p, vec3 n, float h )
 {
@@ -37,7 +38,7 @@ void main() {
     uv *= 2.;
     uv.x *= u_resolution.x/u_resolution.y;
     vec3 camera = vec3(0., 0., -3.);
-    vec3 sun = vec3(sin(u_time), 2.5, cos(u_time));
+    vec3 sun = vec3(0.5, 2.5, -1.);
     vec3 dir = normalize(vec3(uv, 1.));
     vec3 point = shoot(camera, dir, 0.);
     vec3 color = vec3(0., 0., 0.);

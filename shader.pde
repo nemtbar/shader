@@ -1,7 +1,7 @@
 PShader shader;
 
 void setup() {
-  size(500, 600, P2D);
+  size(800, 600, P2D);
   noStroke();
 
   shader = loadShader("shader.frag");
